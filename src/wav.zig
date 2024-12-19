@@ -76,7 +76,7 @@ pub fn Decoder(comptime InnerReaderType: type) type {
 
         counting_reader: ReaderType,
         fmt: FormatChunk,
-        data_start: usize,
+        data_start: u64,
         data_size: usize,
 
         pub fn sampleRate(self: *const Self) usize {
@@ -92,7 +92,7 @@ pub fn Decoder(comptime InnerReaderType: type) type {
         }
 
         /// Number of samples remaining.
-        pub fn remaining(self: *const Self) usize {
+        pub fn remaining(self: *const Self) u64 {
             const sample_size = self.bits() / 8;
             const bytes_remaining = self.data_size + self.data_start - self.counting_reader.bytes_read;
 
